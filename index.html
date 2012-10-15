@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Proof of concept on CORS in Internet shitty Explorer</title>
+    <style type="text/css">
+        li.ko { background-color: red; }
+        li.ok { background-color: green; }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    function test (bool, text) {
+        var t = $("<li></li>");
+        var c = (bool)?'ok':'ko';
+        t.text(text);
+
+        $('#test').append(t);
+    }
+
+    test($.support.cors, "jQuery CORS detection");
+    test(window.XDomainRequest !== undefined, "XDomainRequest found");
+    
+    </script>
+</head>
+<body>
+    <h1>Here are a few test to figure out how much IE sucks</h1>
+    <ul id="tests"></ul>
+</body>
+</html>

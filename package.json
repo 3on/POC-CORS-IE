@@ -1,0 +1,17 @@
+{
+  "name": "POC-CORS-IE",
+  "version": "0.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies" : {
+    "express" : ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/3on/POC-CORS-IE.git"
+  },
+  "author": "3on",
+  "license": "BSD"
+}
