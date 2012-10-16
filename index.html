@@ -7,21 +7,55 @@
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript">
+    var API_URL = "http://macbookprovost.local:8000";
     function test (bool, text) {
         var t = $("<li></li>");
-        var c = (bool)?'ok':'ko';
+        var c = (bool) ? 'ok' : 'ko';
         t.text(text);
-
-        $('#test').append(t);
+        t.addClass(c);
+        $('#tests').append(t);
     }
 
-    test($.support.cors, "jQuery CORS detection");
-    test(window.XDomainRequest !== undefined, "XDomainRequest found");
-    
+    function XDR(method, url, success, error) {
+        var xdr = new XDomainRequest();
+
+
+        xdr.open(method, url);
+        xdr.onload = function(){
+            console.log(xdr.responseText);
+            success(xdr.responseText);
+        }
+        xdr.onerror = function(){
+            console.log(xdr.responseText);
+            error(xdr.responseText);
+        }
+        xdr.send();
+    }
+
+    $(function(){
+        test(jQuery.support.cors, "jQuery CORS detection");
+        test(window.XDomainRequest !== undefined, "XDomainRequest found");
+
+        XDR("get", API_URL + "/get", function(data){
+            test(true, "XDR get query success");
+        },
+        function(data){
+            test(false, "XDR get query failed");
+        });
+
+        XDR("put", API_URL + "/put", function(data){
+            test(true, "XDR put query success");
+        },
+        function(data){
+             test(false, "XDR put query failed");
+        });
+    });
+
     </script>
 </head>
 <body>
-    <h1>Here are a few test to figure out how much IE sucks</h1>
+    <h1>Some tests</h1>
+    <h3>to figure out how much IE sucks</h3>
     <ul id="tests"></ul>
 </body>
 </html>
